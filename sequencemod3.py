@@ -29,8 +29,6 @@ for n in range(1,M+1):
     S.append(i+1)
 print(S)
 
-#This has a cycle(2,10).
-#Can't you just make this whatever you want. Have it approach a value. Create a cycle, etc.
 # Print data.
 # print('S=', S) #Stopping times. For large M it is not always a good idea to print out S.
 print("The maximum element is", max(S))  # Maximum stopping time.
