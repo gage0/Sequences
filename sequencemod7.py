@@ -9,38 +9,119 @@ from numpy import asarray
 from numpy import exp
 from sklearn.neighbors import KernelDensity
 
+def divisors(n):
+    D = []
+    P = []
+    for x in range(2, n + 1):
+        if n % x == 0:
+            D.append(x)
+    return D
+
+
+def prime_factors(d):
+    P = []
+    for d in divisors(d):
+        if len(divisors(d)) < 2:
+            P.append(d)
+    return P
+
+def prime_factorization(n):
+    pf={}
+    for p in prime_factors(n):
+        if n % p == 0:
+            k = 1
+            while n % (p ** k) == 0:
+                k = k + 1
+            pf[p]=k-1
+    return pf
+
 S=[]
+T=[]
+C=[]
 M=input('Enter a bound:')
 M=int(M)
 for n in range(1,M+1):
-    print(n)
+    T.append(n)
+    #print('n =', n)
+    #print('prime factorization of n =', prime_factorization(n))
     i=0
     while n!=1:
         if n%7==0:
             n=n/7
-            print(n)
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         elif n%7==1:
             n=5*n+6
-            print(n)
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         elif n%7==2:
             n=3*n+1
-            print(n)
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         elif n%7==3:
-            n=5*n+1
-            print(n)
+            n=5*n-1
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         elif n%7==4:
             n=3*n+1
-            print(n)
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         elif n%7==5:
-            n=3*n+2
-            print(n)
+            n=3*n+1
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         elif n%7==6:
             n=n+1
-            print(n)
+            n=int(n)
+            T.append(n)
+            if T.count(n)>=2:
+                print('Cycle at n =', n)
+                C.append(n)
+                break
+            #print('n =', n)
+            #print('prime factorization of n =', prime_factorization(n))
         i=i+1
     S.append(i+1)
-print(S)
-
+    print('Trajectory of n =', T)
+    T=[]
+#print(F)
+print('C=', C)
 # Print data.
 # print('S=', S) #Stopping times. For large M it is not always a good idea to print out S.
 print("The maximum element is", max(S))  # Maximum stopping time.
@@ -59,7 +140,7 @@ y = S
 plt.title("Stopping Times for Sequence")
 plt.xlabel("n")
 plt.ylabel("Stopping Time")
-plt.plot(x, y, "o")
+plt.plot(x, y, "*")
 plt.show()
 
 # Create model.
@@ -73,7 +154,7 @@ values = asarray([value for value in np.arange(1, max(S))])
 values = values.reshape((len(values), 1))
 probabilities = model.score_samples(values)
 probabilities = exp(probabilities)
-plt.title("Histogram of Stopping Times")
+plt.title("Distribution of Stopping Times")
 plt.xlabel("Stopping Time")
 plt.ylabel("Frequency of Stopping Time")
 plt.hist(sample, bins=np.arange(0, max(S) + 1, 1), density=True)
