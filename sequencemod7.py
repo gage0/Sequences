@@ -118,10 +118,14 @@ for n in range(1,M+1):
             #print('prime factorization of n =', prime_factorization(n))
         i=i+1
     S.append(i+1)
-    print('Trajectory of n =', T)
+    #print('Trajectory of n =', T)
     T=[]
+
 #print(F)
 print('C=', C)
+if len(C)==0:
+    print('There are no cycles other than the trivial cycle.')
+
 # Print data.
 # print('S=', S) #Stopping times. For large M it is not always a good idea to print out S.
 print("The maximum element is", max(S))  # Maximum stopping time.
@@ -140,7 +144,7 @@ y = S
 plt.title("Stopping Times for Sequence")
 plt.xlabel("n")
 plt.ylabel("Stopping Time")
-plt.plot(x, y, "*")
+plt.plot(x, y, ".")
 plt.show()
 
 # Create model.
